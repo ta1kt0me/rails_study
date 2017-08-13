@@ -7,3 +7,9 @@ RUN ./configure
 RUN make
 RUN make install
 RUN ruby --version
+
+WORKDIR ..
+RUN wget -q -O rubygems-v2.6.12.tar.gz https://github.com/rubygems/rubygems/archive/v2.6.12.tar.gz && tar -zxf rubygems-v2.6.12.tar.gz && rm rubygems-v2.6.12.tar.gz
+WORKDIR rubygems-2.6.12
+RUN ruby setup.rb
+RUN gem -v
