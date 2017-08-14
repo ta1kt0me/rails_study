@@ -18,7 +18,11 @@ RUN ruby extconf.rb && make && make install
 RUN ruby --version
 
 WORKDIR ../..
-RUN wget -q -O rubygems-v2.6.12.tar.gz https://github.com/rubygems/rubygems/archive/v2.6.12.tar.gz && tar -zxf rubygems-v2.6.12.tar.gz && rm rubygems-v2.6.12.tar.gz
-WORKDIR rubygems-2.6.12
+RUN wget -q -O rubygems-v1.3.7.tar.gz https://github.com/rubygems/rubygems/archive/v1.3.7.tar.gz && tar -zxf rubygems-v1.3.7.tar.gz && rm rubygems-v1.3.7.tar.gz
+WORKDIR rubygems-1.3.7
 RUN ruby setup.rb
 RUN gem -v
+
+RUN gem install rake -v '10.5.0' --no-ri --no-rdoc
+RUN gem install rails -v '1.0.0' --no-ri --no-rdoc
+RUN rails -v
