@@ -1,7 +1,7 @@
 FROM alpine:latest
 
 RUN apk update
-RUN apk --no-cache add openssl-dev gdbm-dev readline-dev ncurses-dev libffi-dev gcc g++ make zlib-dev perl build-base libc-dev ca-certificates wget
+RUN apk --no-cache add gdbm-dev readline-dev ncurses-dev libffi-dev gcc g++ make zlib-dev perl build-base libc-dev ca-certificates wget postgresql-dev
 RUN update-ca-certificates
 
 RUN wget -q -O openssl-0.9.8zh.tar.gz https://www.openssl.org/source/old/0.9.x/openssl-0.9.8zh.tar.gz && tar -zxf openssl-0.9.8zh.tar.gz && rm openssl-0.9.8zh.tar.gz
@@ -17,12 +17,17 @@ WORKDIR ext/openssl
 RUN ruby extconf.rb && make && make install
 RUN ruby --version
 
-WORKDIR ../..
+WORKDIR ../../..
 RUN wget -q -O rubygems-v1.3.7.tar.gz https://github.com/rubygems/rubygems/archive/v1.3.7.tar.gz && tar -zxf rubygems-v1.3.7.tar.gz && rm rubygems-v1.3.7.tar.gz
 WORKDIR rubygems-1.3.7
 RUN ruby setup.rb
 RUN gem -v
 
-RUN gem install rake -v '10.5.0' --no-ri --no-rdoc
-RUN gem install rails -v '1.0.0' --no-ri --no-rdoc
-RUN rails -v
+RUN gem install rake -v '0.8.7' --no-ri --no-rdoc
+RUN gem install postgres -v '0.7.9.2008.01.28' --no-ri --no-rdoc
+RUN gem install rails -v '1.0.0' --no-ri --no-rdoc --include-dependencies
+
+WORKDIR ..
+RUN rails app
+WORKDIR app
+COPY config/database.yml /app/config/database.yml

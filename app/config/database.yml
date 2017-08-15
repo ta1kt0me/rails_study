@@ -1,0 +1,16 @@
+default: &default
+  adapter: postgresql
+  encoding: utf8
+  host: db
+  port: 5432
+  username: postgres
+  password:
+  pool: 5
+
+development:
+  <<: *default
+  database: rails_development
+
+test:
+  <<: *default
+  database: rails_test
