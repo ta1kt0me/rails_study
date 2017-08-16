@@ -2,16 +2,17 @@
 
 set -e
 
-if [ ! -d "/app" ]; then
-  rails app
-  mkdir -p /app/db/migrate
-  cp /tmp/database.yml /app/config/database.yml
-  cp /tmp/001_create_tasks.rb /app/db/migrate/001_create_tasks.rb
+if [ ! -d "/apps/todo" ]; then
+  cd /apps
+  rails todo
+  cd /apps/todo
+  mkdir -p db/migrate
+  cp /tmp/database.yml config/database.yml
+  cp /tmp/001_create_tasks.rb db/migrate/001_create_tasks.rb
 
-  cd /app
   rake migrate
   script/generate scaffold Task
   echo 'created new project'
 fi
-cd /app
+cd /apps/todo
 exec "$@"
