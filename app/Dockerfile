@@ -28,6 +28,9 @@ RUN gem install postgres -v '0.7.9.2008.01.28' --no-ri --no-rdoc
 RUN gem install rails -v '1.0.0' --no-ri --no-rdoc --include-dependencies
 
 WORKDIR ..
-RUN rails app
-WORKDIR app
-COPY config/database.yml /app/config/database.yml
+COPY setup.sh /tmp/setup.sh
+RUN chmod +x /tmp/setup.sh
+COPY config/database.yml /tmp/database.yml
+COPY db/migrate/001_create_tasks.rb /tmp/001_create_tasks.rb
+ENTRYPOINT ["/tmp/setup.sh"]
+CMD ["script/server"]

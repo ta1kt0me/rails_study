@@ -13,8 +13,9 @@ services:
     build:
       context: app
       dockerfile: Dockerfile
-    command: script/server
     ports:
       - "3000:3000"
     depends_on:
       - db
+    volumes:
+      - ./todo:/app
