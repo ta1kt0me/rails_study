@@ -6,12 +6,9 @@ if [ ! -d "/apps/todo" ]; then
   cd /apps
   rails todo
   cd /apps/todo
-  mkdir -p db/migrate
   cp /tmp/database.yml config/database.yml
-  cp /tmp/001_create_tasks.rb db/migrate/001_create_tasks.rb
-  sed  -i -e 's/require_gem\(.*\)/gem\1/' config/boot.rb
-  rake migrate
-  script/generate scaffold Task
+  script/generate scaffold Task name:string done_at:datetime
+  rake db:migrate
   echo 'created new project'
 fi
 cd /apps/todo
