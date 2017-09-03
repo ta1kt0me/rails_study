@@ -12,11 +12,10 @@ RUN rm -rf rubygems-1.3.7
 
 RUN gem1.8 install rake -v '0.8.7' --no-ri --no-rdoc
 RUN gem1.8 install postgres -v '0.7.9.2008.01.28' --no-ri --no-rdoc
-RUN gem1.8 install rails -v '1.2.0' --no-ri --no-rdoc --include-dependencies
+RUN gem1.8 install rails -v '2.0.1' --no-ri --no-rdoc --include-dependencies
 
 COPY setup.sh /tmp/setup.sh
 RUN chmod +x /tmp/setup.sh
 COPY config/database.yml /tmp/database.yml
-COPY db/migrate/001_create_tasks.rb /tmp/001_create_tasks.rb
 ENTRYPOINT ["/tmp/setup.sh"]
 CMD ["script/server"]
