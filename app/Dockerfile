@@ -12,7 +12,7 @@ RUN rm -rf rubygems-1.3.7
 
 RUN gem1.8 install rake -v '0.8.7' --no-ri --no-rdoc
 RUN gem1.8 install postgres -v '0.7.9.2008.01.28' --no-ri --no-rdoc
-RUN gem1.8 install rails -v '2.1.2' --no-ri --no-rdoc --include-dependencies
+RUN gem1.8 install rails -v '2.2.3' --no-ri --no-rdoc --include-dependencies
 
 COPY setup.sh /tmp/setup.sh
 RUN chmod +x /tmp/setup.sh
