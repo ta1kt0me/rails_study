@@ -1,21 +1,12 @@
 version: "3"
 services:
-  db:
-    build:
-      context: db
-      dockerfile: Dockerfile
-    ports:
-      - "5432:5432"
-    environment:
-      - POSTGRES_USER=postgres
-      - PGDATA=/pgdata
   app:
     build:
       context: app
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
-    depends_on:
-      - db
+    tty: true
+    stdin_open: true
     volumes:
       - ./rails_apps:/apps
