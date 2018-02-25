@@ -1,10 +1,16 @@
 # rails sample
 
-## v1.0.0
+## v3.0.0
 
 ```
-docker-compose up --build db
-docker-compose up --build app
+# setup
+rake build up
+
+# build with clean
+rake rebuild up
+
+# debug, detach with ctrl-p + ctrl-q
+docker attach (docker-compose ps -q)
 ```
 
-Then access http://localhost:3000/tasks/index .
+Then access http://localhost:3000/tasks .
